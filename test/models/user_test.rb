@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @user = User.new(name: 'Example user', email: 'user@example.com', password: 'foobar', password_confirmation: 'foobar')
+    @user = User.new(name: 'Example user', email: 'user@example.com', password: 'foobar',
+                     password_confirmation: 'foobar')
   end
 
   test 'should be valid' do
@@ -25,7 +28,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'email should not be too long' do
-    @user.email = 'a' * 254 + '@example.com'
+    @user.email = "#{'a' * 254}@example.com"
     assert_not @user.valid?
   end
 
@@ -50,19 +53,19 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'email addresses should be saved as lowercase' do
-    mixed_case_email = "Foo@ExAmplE.cOM"
+    mixed_case_email = 'Foo@ExAmplE.cOM'
     @user.email = mixed_case_email
     @user.save
     assert_equal mixed_case_email.downcase, @user.reload.email
   end
 
-  test 'password should be presented' do 
-    @user.password = @user.password_confirmation = ''*6
+  test 'password should be presented' do
+    @user.password = @user.password_confirmation = '' * 6
     assert_not @user.valid?
   end
 
   test 'password should have a minimum length' do
-    @user.password = @user.password_confirmation = 'a'*5
+    @user.password = @user.password_confirmation = 'a' * 5
     assert_not @user.valid?
   end
 end
