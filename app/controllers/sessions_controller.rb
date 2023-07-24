@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)
@@ -18,5 +17,4 @@ class SessionsController < ApplicationController
     logout
     redirect_to root_url, status: :see_other
   end
-
 end
