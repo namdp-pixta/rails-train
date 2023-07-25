@@ -8,8 +8,12 @@ ruby '3.2.2'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'bcrypt', '3.1.18'
 gem 'bootstrap-sass', '3.4.1'
+gem 'faker', '2.21.0'
 gem 'rails', '~> 7.0.4'
 gem 'sassc-rails', '2.1.2'
+
+gem 'bootstrap-will_paginate', '1.0.0'
+gem 'will_paginate', '3.3.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails', '3.4.2'
