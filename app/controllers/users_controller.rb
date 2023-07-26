@@ -7,11 +7,12 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.where(activated: true).find(params[:id])
+    redirect_to root_url and return if @user.nil?
   end
 
   def new
@@ -21,10 +22,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      reset_session
-      login(@user)
-      flash[:success] = 'Welcome!'
-      redirect_to @user
+      @user.send_activation_email
+      flash[:info] = 'Please check email for account activation'
+      redirect_to root_url
     else
       render 'new', status: :unprocessable_entity
     end
