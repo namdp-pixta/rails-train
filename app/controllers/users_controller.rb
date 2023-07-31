@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.where(activated: true).find(params[:id])
-    @micropost = @user.micropost.paginate(page: params[:page])
+    @microposts = @user.microposts.paginate(page: params[:page])
     redirect_to root_url and return if @user.nil?
   end
 
@@ -58,13 +58,13 @@ class UsersController < ApplicationController
   end
 
   # guard against not logged in user
-  def logged_in_user
-    return if logged_in?
+  # def logged_in_user
+  #   return if logged_in?
 
-    store_location # from session helper
-    flash[:danger] = 'Please login'
-    redirect_to login_url, status: :see_other
-  end
+  #   store_location # from session helper
+  #   flash[:danger] = 'Please login'
+  #   redirect_to login_url, status: :see_other
+  # end
 
   # guard agains wrong user
   def correct_user
