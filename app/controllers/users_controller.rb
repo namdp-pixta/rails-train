@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.where(activated: true).find(params[:id])
+    @micropost = @user.micropost.paginate(page: params[:page])
     redirect_to root_url and return if @user.nil?
   end
 
