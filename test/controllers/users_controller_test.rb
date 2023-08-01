@@ -39,4 +39,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
           params: { user: { password: 'password', password_confirmation: 'password', admin: true } }
     assert_not @other_user.reload.admin?
   end
+
+  test 'Should redirect following when not logged in' do
+    get following_user_path(@user)
+    assert_redirected_to login_url
+  end
+
+  test 'Should redirect followers when not logged in' do
+    get followers_user_path(@user)
+    assert_redirected_to login_url
+  end
 end
